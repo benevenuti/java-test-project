@@ -1,6 +1,6 @@
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EstimateCheck {
     private final List<Hotel> availableHotels;
@@ -10,13 +10,13 @@ public class EstimateCheck {
     }
 
     public Hotel findCheaper(EstimateParam estimateParam) {
-        Estimate[] estimateList = (Estimate[]) availableHotels.stream().map(hotel -> hotel.doEstimate(estimateParam)).toArray();
+        Comparator<Estimate> priceComparator = Comparator.comparingInt(Estimate::getPrice);
 
-        Comparator<Estimate> priceComparator = Comparator.comparingInt(Estimate::getPrice)
-                .thenComparingInt(estimate -> estimate.getHotel().getLevel()).reversed();
+        List<Estimate> estimateList = availableHotels.stream()
+                .map(hotel -> hotel.doEstimate(estimateParam))
+                .sorted(priceComparator)
+                .collect(Collectors.toList());
 
-        Arrays.sort(estimateList, priceComparator);
-
-        return estimateList[0].getHotel();
+        return estimateList.get(0).getHotel();
     }
 }
