@@ -1,3 +1,5 @@
+import java.util.StringJoiner;
+
 public class Hotel {
     private final String name;
     private final int level;
@@ -59,5 +61,13 @@ public class Hotel {
         }).sum();
 
         return new Estimate(this, valor);
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Hotel.class.getSimpleName() + "[", "]")
+                .add("name='" + name + "'")
+                .add("level=" + level)
+                .toString();
     }
 }

@@ -1,3 +1,5 @@
+import java.util.StringJoiner;
+
 public class Estimate {
     private final Hotel hotel;
     private final int price;
@@ -15,4 +17,11 @@ public class Estimate {
         return price;
     }
 
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Estimate.class.getSimpleName() + "[", "]")
+                .add("hotel=" + hotel)
+                .add("price=" + price)
+                .toString();
+    }
 }

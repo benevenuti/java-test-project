@@ -9,14 +9,15 @@ public class EstimateCheck {
         this.availableHotels = availableHotels;
     }
 
-    public Hotel findCheaper(EstimateParam estimateParam) {
-        Comparator<Estimate> priceComparator = Comparator.comparingInt(Estimate::getPrice);
+    public Estimate findCheaper(EstimateParam estimateParam) {
+        Comparator<Estimate> priceComparator = Comparator.comparingInt(Estimate::getPrice)
+                .thenComparingInt(estimate -> estimate.getHotel().getLevel() * -1); // sorry
 
         List<Estimate> estimateList = availableHotels.stream()
                 .map(hotel -> hotel.doEstimate(estimateParam))
                 .sorted(priceComparator)
                 .collect(Collectors.toList());
 
-        return estimateList.get(0).getHotel();
+        return estimateList.get(0);
     }
 }

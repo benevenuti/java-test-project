@@ -20,7 +20,7 @@ public class SimpleTests {
     );
 
     @Test
-    public void testeEntrada1() {
+    public void estimateTest01() {
 
         EstimateParam estimateParam = new EstimateParam(ClientTypeEnum.REGULAR,
                 Arrays.asList(
@@ -31,11 +31,51 @@ public class SimpleTests {
 
         EstimateCheck estimateCheck = new EstimateCheck(availableHotels);
 
-        Hotel cheaper = estimateCheck.findCheaper(estimateParam);
+        Estimate cheaper = estimateCheck.findCheaper(estimateParam);
 
-        Logger.getLogger(SimpleTests.class.getName()).info(cheaper.getName());
+        Logger.getLogger(SimpleTests.class.getName()).info(cheaper.toString());
 
-        assertEquals(hotelParqueDasFlores, cheaper);
+        assertEquals(hotelParqueDasFlores, cheaper.getHotel());
+
+    }
+
+    @Test
+    public void estimateTest02() {
+
+        EstimateParam estimateParam = new EstimateParam(ClientTypeEnum.REGULAR,
+                Arrays.asList(
+                        LocalDate.of(2020, 3, 20),
+                        LocalDate.of(2020, 3, 21),
+                        LocalDate.of(2020, 3, 22))
+        );
+
+        EstimateCheck estimateCheck = new EstimateCheck(availableHotels);
+
+        Estimate cheaper = estimateCheck.findCheaper(estimateParam);
+
+        Logger.getLogger(SimpleTests.class.getName()).info(cheaper.toString());
+
+        assertEquals(hotelJardimBotanico, cheaper.getHotel());
+
+    }
+
+    @Test
+    public void estimateTest03() {
+
+        EstimateParam estimateParam = new EstimateParam(ClientTypeEnum.LOYAL,
+                Arrays.asList(
+                        LocalDate.of(2020, 3, 26),
+                        LocalDate.of(2020, 3, 27),
+                        LocalDate.of(2020, 3, 28))
+        );
+
+        EstimateCheck estimateCheck = new EstimateCheck(availableHotels);
+
+        Estimate cheaper = estimateCheck.findCheaper(estimateParam);
+
+        Logger.getLogger(SimpleTests.class.getName()).info(cheaper.toString());
+
+        assertEquals(hotelMarAtlantico, cheaper.getHotel());
 
     }
 }

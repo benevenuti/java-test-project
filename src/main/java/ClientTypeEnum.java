@@ -1,3 +1,4 @@
 public enum ClientTypeEnum {
-    REGULAR
+    REGULAR,
+    LOYAL
 }
